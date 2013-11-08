@@ -1,10 +1,17 @@
-FROM archlinux
+FROM schmidh/arch-base
 MAINTAINER Eamon O'Dea <[last name without apostrophe]35@gmail.com>
 
-RUN pacman -S jre7-openjdk-headless 7.u45_2.4.3-1
-RUN mkdir opt && cd opt && curl -C - -f http://beast-mcmc.googlecode.com/files/BEASTv1.8.0.tgz | tar -xz -
+RUN cd tmp && curl https://aur.archlinux.org/packages/su/sun-java6/sun-java6.tar.gz | tar -xzf -
+RUN cd tmp/sun-java6 && makepkg -c --asroot
+RUN pacman -U --noconfirm /tmp/sun-java6/*.pkg.tar.xz
+
+RUN install -d opt
+RUN cd opt && curl http://beast-mcmc.googlecode.com/files/BEASTv1.8.0.tgz | tar -xzf -
 RUN ln -s /opt/BEASTv1.8.0/bin/{beast,treeannotator} /usr/bin
+
 RUN useradd -m -g users -s /bin/bash archie
 
 ENTRYPOINT ["make"]
 USER archie
+
+ADD ./home/archie/shortnames.xml ./home/archie/shortnames.xml

@@ -3,4 +3,4 @@ BEAST=/usr/bin/beast
 all: shortnames.log
 
 shortnames.log: shortnames.xml
-	$(BEAST) $<
+	. /opt/sun-java6/envsetup.sh && $(BEAST) $<

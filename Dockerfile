@@ -9,9 +9,8 @@ RUN install -d opt
 RUN cd opt && curl http://beast-mcmc.googlecode.com/files/BEASTv1.8.0.tgz | tar -xzf -
 RUN ln -s /opt/BEASTv1.8.0/bin/{beast,treeannotator} /usr/bin
 
-RUN useradd -m -g users -s /bin/bash archie
+ADD shortnames.xml ./shortnames.xml
+ADD Makefile ./Makefile
 
-ENTRYPOINT ["make"]
-USER archie
+ENTRYPOINT ["/usr/bin/make"]
 
-ADD ./home/archie/shortnames.xml ./home/archie/shortnames.xml

@@ -1,4 +1,4 @@
-FROM schmidh/arch-base
+FROM eamon/arch-devel
 MAINTAINER Eamon O'Dea <[last name without apostrophe]35@gmail.com>
 
 RUN cd tmp && curl https://aur.archlinux.org/packages/su/sun-java6/sun-java6.tar.gz | tar -xzf -
